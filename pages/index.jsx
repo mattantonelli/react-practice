@@ -1,16 +1,15 @@
-import Head from 'next/head'
+import Layout from "@/components/layout";
+import Link from "next/link";
 
-export default function Home() {
+export default function ReactPractice() {
   return (
     <>
-      <Head>
-        <title>Tic Tac Toe</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <main>
-        <h1>Tic Tac Toe</h1>
-        <p>We gaming!</p>
-      </main>
+      <Layout>
+        <h2>React Practice</h2>
+        <ul>
+          <li><Link href="/quick-start">Quick Start</Link></li>
+        </ul>
+      </Layout>
     </>
   )
 }
