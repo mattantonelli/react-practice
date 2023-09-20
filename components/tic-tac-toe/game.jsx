@@ -13,7 +13,7 @@ export default function Game() {
   const currentSquares = history[currentMove];
 
   // The current player, determined by the current move number
-  const currentPlayer = currentMove % 2 === 0 ? 'X' : 'O';
+  const currentPlayer = playerByMove(currentMove);
 
   // Add the new board state to the history and update the current move
   function handleMove(newSquares) {
@@ -22,19 +22,42 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
+  // Determines the player based on the move number
+  function playerByMove(move) {
+    return move % 2 === 0 ? 'X' : 'O';
+  }
+
   // Clear the board and set the current player to X
   function reset() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
   }
 
-  // Create a list for the history of moves, excluding the initial empty state and current move
-  const moves = history.slice(1, history.length - 1).map((squares, i) => {
+  // Create a list for the history of moves, excluding the initial empty state
+  const moves = history.map((squares, i) => {
+    if (i === 0) {
+      return;
+    }
+
+    // Determine the index of the last modified square
+    const previousSquares = history[i - 1];
+    let newSquareIndex;
+    squares.forEach((square, i) => {
+      if (previousSquares[i] !== square) {
+        newSquareIndex = i;
+      }
+    });
+
     return (
       <li key={i}>
         <button className="btn btn-sm btn-secondary mb-1"
-          onClick={() => setCurrentMove(i + 1)}>
-            {`Go to Move #${i + 1}`}
+          onClick={() => setCurrentMove(i)}>
+            {
+              `Move #${i} —
+              (${playerByMove(i - 1)}:
+              ${(newSquareIndex % 3) + 1},
+              ${Math.floor(newSquareIndex / 3) + 1})`
+            }
         </button>
       </li>
     );
