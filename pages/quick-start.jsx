@@ -1,5 +1,5 @@
-import CounterButton from '@/components/counter-button';
-import FruitList from '@/components/fruit-list';
+import CounterButton from '@/components/quick-start/counter-button';
+import FruitList from '@/components/quick-start/fruit-list';
 import Layout from '@/components/layout';
 import Head from 'next/head';
 import Link from 'next/link';
